@@ -8,20 +8,14 @@ export default {
         sans: ['"DM Sans"', "system-ui", "sans-serif"],
       },
       colors: {
-        accent: {
-          light: "#e0f2fe",
-          DEFAULT: "#0ea5e9",
-          dark: "#0284c7",
-        },
-        surface: {
-          DEFAULT: "#ffffff",
-          muted: "#f8fafc",
-          subtle: "#f1f5f9",
-        },
-        border: {
-          DEFAULT: "#e2e8f0",
-          light: "#f1f5f9",
-        },
+        background: "#fbfaf7",
+        surface: "#ffffff",
+        "surface-muted": "#f8fafc",
+        "surface-warm": "#f6f4ef",
+        primary: "#0ea5e9",
+        "primary-hover": "#0284c7",
+        "primary-soft": "#e0f2fe",
+        "primary-subtle": "#f0f9ff",
       },
     },
   },
