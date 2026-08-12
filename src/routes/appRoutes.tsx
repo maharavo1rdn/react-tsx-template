@@ -1,12 +1,12 @@
 import { Navigate, Outlet, type RouteObject } from "react-router-dom";
 import { AppLayout } from "@components/layout/AppLayout";
-import CustomerCreate from "@pages/CustomerCreate";
-import Customers from "@pages/Customers";
-import Dashboard from "@pages/Dashboard";
-import Login from "@pages/Login";
-import NotFound from "@pages/NotFound";
-import Settings from "@pages/Settings";
-import Support from "@pages/Support";
+import CustomerCreate from "@/features/customers/CustomerCreate";
+import Customers from "@/features/customers/Customers";
+import Dashboard from "@/features/dashboard/Dashboard";
+import Login from "@/features/auth/Login";
+import NotFound from "@/shared/errors/NotFound";
+import Settings from "@/features/settings/Settings";
+import Support from "@features/Support";
 
 const privateRoutes: RouteObject[] = [
   { index: true, element: <Navigate to="/dashboard" replace /> },

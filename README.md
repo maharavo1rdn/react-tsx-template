@@ -33,7 +33,7 @@ src/
   config/
     app.ts           Nom, baseline et futur chemin du logo
     navigation.ts    Déclaration typée des sections et sous-menus
-  pages/             Pages routées de démonstration
+  features/             features routées de démonstration
   routes/
     appRoutes.tsx    Déclaration centralisée des routes publiques et applicatives
   services/

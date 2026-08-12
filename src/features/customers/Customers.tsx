@@ -1,10 +1,10 @@
 import { MoreHorizontal, Plus, Search, Trash2, UserX } from "lucide-react";
 import { Link } from "react-router-dom";
-import { Input } from "../components/ui/Input";
-import { Button } from "../components/ui/Button";
-import { EmptyState } from "../components/ui/Feedback";
+import { Input } from "../../components/ui/Input";
+import { Button } from "../../components/ui/Button";
+import { EmptyState } from "../../components/ui/Feedback";
 
-export default function Customers() {
+const Customers = () => {
   return (
     <div className="space-y-5">
       <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
@@ -85,3 +85,4 @@ export default function Customers() {
     </div>
   );
 }
+export default Customers;

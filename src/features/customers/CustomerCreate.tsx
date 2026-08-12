@@ -1,12 +1,12 @@
 import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
 import { RotateCcw, Save, Wand2 } from "lucide-react";
-import { Button } from "../components/ui/Button";
-import { Checkbox } from "../components/ui/Checkbox";
-import { Input } from "../components/ui/Input";
-import { Select } from "../components/ui/Select";
-import { Switch } from "../components/ui/Switch";
-import { Textarea } from "../components/ui/Textarea";
-import { Toast } from "../components/ui/Feedback";
+import { Button } from "../../components/ui/Button";
+import { Checkbox } from "../../components/ui/Checkbox";
+import { Input } from "../../components/ui/Input";
+import { Select } from "../../components/ui/Select";
+import { Switch } from "../../components/ui/Switch";
+import { Textarea } from "../../components/ui/Textarea";
+import { Toast } from "../../components/ui/Feedback";
 
 const customerTypes = [
   { label: "Particulier", value: "individual" },
