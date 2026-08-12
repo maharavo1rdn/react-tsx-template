@@ -1,4 +1,4 @@
-import { useEffect, useState, type ChangeEvent, type FormEvent } from "react";
+import React, { useEffect, useState, type ChangeEvent } from "react";
 import { RotateCcw, Save, Wand2 } from "lucide-react";
 import { Button } from "../../components/ui/Button";
 import { Checkbox } from "../../components/ui/Checkbox";
@@ -81,7 +81,7 @@ export default function CustomerCreate() {
     setFeedback("Formulaire réinitialisé via onClick.");
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsSaving(true);
     setFeedback("Simulation d'enregistrement en cours.");

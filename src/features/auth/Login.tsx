@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LockKeyhole, Mail } from "lucide-react";
 import { BrandMark } from "../../components/layout/BrandMark";
@@ -15,7 +15,7 @@ export default function Login() {
         document.title = "Connexion - LR";
     }, []);
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
         event.preventDefault();
         setIsSubmitting(true);
 
