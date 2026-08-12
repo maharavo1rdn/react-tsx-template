@@ -1,85 +1,132 @@
 import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Circle } from "lucide-react";
 import { cn } from "../../lib/utils";
-import type { NavItem } from "../../types/index";
+import type { NavigationItem } from "../../types";
 
-export const SidebarItem = ({ item, collapsed }: { item: NavItem; collapsed: boolean }) => {
-    const navigate = useNavigate();
-    const location = useLocation();
-    const hasChildren = !!item.children?.length;
+interface SidebarItemProps {
+  item: NavigationItem;
+  collapsed: boolean;
+  onNavigate?: (() => void) | undefined;
+  depth?: number | undefined;
+}
 
-    const isPathActive = (path?: string) => path ? location.pathname.startsWith(path) : false;
-    const isParentActive = hasChildren && item.children?.some(c => isPathActive(c.path));
-    const isActive = !hasChildren && isPathActive(item.path);
+const findFirstPath = (item: NavigationItem): string | undefined => {
+  if (item.path) return item.path;
+  return item.children?.map(findFirstPath).find(Boolean);
+};
 
-    const [open, setOpen] = useState(isParentActive);
+const isItemActive = (item: NavigationItem, pathname: string): boolean => {
+  if (item.path && pathname === item.path) {
+    return true;
+  }
 
-    const handleClick = () => {
-        if (hasChildren) {
-            if (!collapsed) setOpen(!open);
-        } else if (item.onClick) {
-            item.onClick();
-        } else if (item.path) {
-            navigate(item.path);
+  return item.children?.some((child) => isItemActive(child, pathname)) ?? false;
+};
+
+export const SidebarItem = ({
+  item,
+  collapsed,
+  onNavigate,
+  depth = 0,
+}: SidebarItemProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const hasChildren = !!item.children?.length;
+  const active = isItemActive(item, location.pathname);
+  const [open, setOpen] = useState(false);
+  const expanded = active || open;
+  const Icon = item.icon ?? Circle;
+
+  const handleClick = () => {
+    if (item.disabled) return;
+
+    if (hasChildren) {
+      if (collapsed) {
+        const firstChildPath = findFirstPath(item);
+        if (firstChildPath) {
+          navigate(firstChildPath);
+          onNavigate?.();
         }
-    };
+        return;
+      }
 
-    return (
-        <div>
-            <button
-                onClick={handleClick}
-                title={collapsed ? item.label : undefined}
-                className={cn(
-                    "w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-all focus:outline-none focus:ring-2 focus:ring-primary/30",
-                    (isActive || isParentActive)
-                        ? "bg-primary-light text-primary"
-                        : "text-slate-600 hover:bg-slate-50 hover:text-primary"
-                )}
-            >
-                <item.icon size={18} className="shrink-0" />
-                {!collapsed && (
-                    <>
-                        <span className="flex-1 text-left whitespace-nowrap">{item.label}</span>
-                        {hasChildren && (
-                            <ChevronRight size={16} className={cn("transition-transform duration-200", open && "rotate-90")} />
-                        )}
-                    </>
-                )}
-            </button>
+      setOpen((current) => !current);
+    } else if (item.path) {
+      navigate(item.path);
+      onNavigate?.();
+    }
+  };
 
-            {hasChildren && !collapsed && (
-                <div
-                    className={cn(
-                        "grid transition-all duration-200 ease-in-out",
-                        open ? "grid-rows-[1fr] opacity-100 mt-1" : "grid-rows-[0fr] opacity-0"
-                    )}
-                >
-                    <div className="overflow-hidden flex flex-col gap-1 pl-9 pr-1">
-                        {item.children!.map((child) => {
-                            const isChildActive = location.pathname === child.path;
-                            return (
-                                <button
-                                    key={child.id}
-                                    onClick={() => navigate(child.path)}
-                                    className={cn(
-                                        "relative w-full flex items-center gap-2 px-3 py-2 rounded-md text-sm transition-colors",
-                                        isChildActive
-                                            ? "text-primary font-semibold bg-primary-light/50"
-                                            : "text-slate-500 hover:text-primary hover:bg-slate-50"
-                                    )}
-                                >
-                                    {isChildActive && (
-                                        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-4 bg-primary rounded-r-md" />
-                                    )}
-                                    <div className={cn("w-1.5 h-1.5 rounded-full", isChildActive ? "bg-primary" : "bg-slate-300")} />
-                                    <span className="whitespace-nowrap">{child.label}</span>
-                                </button>
-                            );
-                        })}
-                    </div>
-                </div>
+  return (
+    <div className="min-w-0">
+      <button
+        onClick={handleClick}
+        title={collapsed ? item.label : undefined}
+        aria-current={!hasChildren && active ? "page" : undefined}
+        aria-expanded={hasChildren && !collapsed ? expanded : undefined}
+        disabled={item.disabled}
+        className={cn(
+          "group relative flex h-11 w-full items-center gap-3 rounded-lg px-3 text-base font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/25",
+          depth > 0 && "h-10 text-[0.95rem]",
+          active
+            ? "bg-primary-subtle text-sky-700 shadow-[inset_0_0_0_1px_rgba(14,165,233,0.14)]"
+            : "text-slate-600 hover:bg-white hover:text-slate-950 hover:shadow-[inset_0_0_0_1px_rgba(226,232,240,0.85)]",
+          item.disabled &&
+            "cursor-not-allowed opacity-45 hover:bg-transparent hover:text-slate-600 hover:shadow-none"
+        )}
+      >
+        <Icon
+          size={depth > 0 ? 16 : 19}
+          className={cn("shrink-0", depth > 0 && "text-slate-400")}
+        />
+        {!collapsed && (
+          <>
+            <span className="min-w-0 flex-1 truncate text-left">
+              {item.label}
+            </span>
+            {item.badge && (
+              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[0.7rem] font-semibold text-slate-500">
+                {item.badge}
+              </span>
             )}
+            {hasChildren && (
+              <ChevronRight
+                size={16}
+                className={cn(
+                  "text-slate-400 transition-transform duration-200",
+                  expanded && "rotate-90 text-sky-600"
+                )}
+              />
+            )}
+          </>
+        )}
+      </button>
+
+      {hasChildren && !collapsed && (
+        <div
+          className={cn(
+            "grid transition-all duration-200 ease-in-out",
+            expanded
+              ? "mt-1 grid-rows-[1fr] opacity-100"
+              : "grid-rows-[0fr] opacity-0"
+          )}
+        >
+          <div className="overflow-hidden pl-5">
+            <div className="flex flex-col gap-1 border-l border-slate-100 pl-3">
+              {item.children?.map((child) => (
+                <SidebarItem
+                  key={child.id}
+                  item={child}
+                  collapsed={collapsed}
+                  onNavigate={onNavigate}
+                  depth={depth + 1}
+                />
+              ))}
+            </div>
+          </div>
         </div>
-    );
+      )}
+    </div>
+  );
 };
