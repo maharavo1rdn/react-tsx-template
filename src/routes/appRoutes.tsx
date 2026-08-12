@@ -15,11 +15,11 @@ const privateRoutes: RouteObject[] = [
   { path: "customers/create", element: <CustomerCreate /> },
   { path: "settings", element: <Settings /> },
   { path: "support", element: <Support /> },
-  { path: "*", element: <NotFound /> },
 ];
 
 export const appRoutes: RouteObject[] = [
   { path: "/login", element: <Login /> },
+  { path: "*", element: <NotFound /> },
   {
     path: "/",
     element: (
