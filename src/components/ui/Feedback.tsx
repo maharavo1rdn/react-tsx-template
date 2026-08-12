@@ -65,7 +65,7 @@ export const Toast = ({ tone = "info", title, description }: ToastProps) => {
     >
       <Icon size={18} className="mt-0.5 shrink-0" />
       <div>
-        <p className="font-semibold">{title}</p>
+        {title && <p className="font-semibold">{title}</p>}
         {description && <p className="mt-1 opacity-80">{description}</p>}
       </div>
     </div>

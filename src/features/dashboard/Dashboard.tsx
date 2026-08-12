@@ -1,5 +1,5 @@
 import { Activity, CreditCard, TrendingUp, Users } from "lucide-react";
-import { Skeleton, Toast } from "../components/ui/Feedback";
+import { Skeleton, Toast } from "../../components/ui/Feedback";
 
 const stats = [
   { label: "Clients actifs", value: "1 284", trend: "+12,4%", icon: Users },

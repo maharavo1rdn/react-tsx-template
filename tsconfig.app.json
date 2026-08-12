@@ -10,7 +10,7 @@
       "@components/*": ["./src/components/*"],
       "@config/*": ["./src/config/*"],
       "@lib/*": ["./src/lib/*"],
-      "@pages/*": ["./src/pages/*"],
+      "@features/*": ["./src/features/*"],
       "@routes/*": ["./src/routes/*"],
       "@services/*": ["./src/services/*"],
       "@types/*": ["./src/types/*"]
