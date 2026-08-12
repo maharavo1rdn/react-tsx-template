@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ChevronRight, Circle } from "lucide-react";
 import { cn } from "../../lib/utils";
@@ -34,9 +34,15 @@ export const SidebarItem = ({
   const location = useLocation();
   const hasChildren = !!item.children?.length;
   const active = isItemActive(item, location.pathname);
-  const [open, setOpen] = useState(false);
-  const expanded = active || open;
-  const Icon = item.icon ?? Circle;
+  const [open, setOpen] = useState(active);
+
+  useEffect(() => {
+    if (active) {
+      setOpen(true);
+    }
+  }, [active]);
+
+const expanded = open;  const Icon = item.icon ?? Circle;
 
   const handleClick = () => {
     if (item.disabled) return;
