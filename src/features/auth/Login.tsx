@@ -27,7 +27,7 @@ export default function Login() {
 
     return (
         <main className="flex min-h-dvh items-center justify-center bg-background px-4 py-8">
-            <section className="grid w-full max-w-5xl overflow-hidden rounded-xl bg-[#fffdf8] shadow-[0_24px_70px_rgba(23,32,51,0.12)] lg:grid-cols-[0.95fr_1.05fr]">
+            <section className="grid w-full max-w-5xl overflow-hidden rounded-xl bg-[#fffefd] shadow-[0_24px_70px_rgba(23,32,51,0.12)] lg:grid-cols-[0.95fr_1.05fr]">
                 <div className="hidden bg-surface-warm p-8 lg:flex lg:flex-col lg:justify-between">
                     <BrandMark />
                     <div className="space-y-4">

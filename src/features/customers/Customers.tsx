@@ -38,7 +38,7 @@ const Customers = () => {
         </div>
 
         <div className="overflow-hidden rounded-lg bg-white shadow-[inset_0_0_0_1px_rgba(223,216,201,0.5)]">
-          <div className="grid grid-cols-[1.2fr_1fr_0.7fr_auto] gap-4 bg-[#f3efe6] px-4 py-3 text-xs font-semibold uppercase text-slate-500 max-md:hidden">
+          <div className="grid grid-cols-[1.2fr_1fr_0.7fr_auto] gap-4 bg-[#faf7f1] px-4 py-3 text-xs font-semibold uppercase text-slate-500 max-md:hidden">
             <span>Client</span>
             <span>Email</span>
             <span>Statut</span>

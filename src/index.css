@@ -4,14 +4,14 @@
   --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
   --color-background: #fbfaf7;
   --color-surface: #ffffff;
-  --color-surface-muted: #f7f4ee;
-  --color-surface-warm: #f1ecdf;
+  --color-surface-muted: #fbfaf7;
+  --color-surface-warm: #f7f3eb;
   --color-primary: #0284c7;
   --color-primary-hover: #0369a1;
   --color-primary-soft: #e7f1f6;
-  --color-primary-subtle: #f8f5ee;
+  --color-primary-subtle: #fcfaf5;
   --color-brand-ink: #172033;
-  --color-brand-line: #dfd8c9;
+  --color-brand-line: #ebe5d9;
 }
 
 :root {
@@ -71,7 +71,7 @@ button:disabled {
 }
 
 .ui-panel {
-  background: #fffdf8;
+  background: #fffefd;
   border-radius: 10px;
   box-shadow:
     0 1px 1px rgba(23, 32, 51, 0.04),
@@ -79,13 +79,13 @@ button:disabled {
 }
 
 .ui-panel-muted {
-  background: #faf7ef;
+  background: #fdfbf6;
   border-radius: 10px;
-  box-shadow: inset 0 0 0 1px rgba(223, 216, 201, 0.58);
+  box-shadow: inset 0 0 0 1px rgba(235, 229, 217, 0.7);
 }
 
 .ui-icon-tile {
-  background: #f1ecdf;
+  background: #f8f3ea;
   color: #0369a1;
   box-shadow: inset 0 0 0 1px rgba(23, 32, 51, 0.06);
 }

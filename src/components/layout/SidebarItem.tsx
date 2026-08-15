@@ -34,8 +34,7 @@ export const SidebarItem = ({
   const location = useLocation();
   const hasChildren = !!item.children?.length;
   const active = isItemActive(item, location.pathname);
-  const [manualOpen, setManualOpen] = useState(false);
-  const expanded = active || manualOpen;
+  const [expanded, setExpanded] = useState(active);
   const Icon = item.icon ?? Circle;
 
   const handleClick = () => {
@@ -51,7 +50,7 @@ export const SidebarItem = ({
         return;
       }
 
-      setManualOpen((current) => !current);
+      setExpanded((current) => !current);
     } else if (item.path) {
       navigate(item.path);
       onNavigate?.();
@@ -70,10 +69,10 @@ export const SidebarItem = ({
           "group relative flex h-11 w-full items-center gap-3 rounded-lg px-3 text-base font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/25",
           depth > 0 && "h-10 text-[0.95rem]",
           active && depth === 0
-            ? "bg-[#fffdf8] text-brand-ink shadow-[inset_3px_0_0_#0284c7,inset_0_0_0_1px_rgba(223,216,201,0.9),0_1px_2px_rgba(23,32,51,0.05)]"
+            ? "bg-[#fffefd] text-brand-ink shadow-[inset_3px_0_0_#0284c7,inset_0_0_0_1px_rgba(235,229,217,0.95),0_1px_2px_rgba(23,32,51,0.05)]"
             : active
               ? "bg-transparent text-brand-ink shadow-[inset_2px_0_0_#0284c7]"
-              : "text-slate-600 hover:bg-[#fffdf8] hover:text-brand-ink hover:shadow-[inset_0_0_0_1px_rgba(223,216,201,0.75)]",
+              : "text-slate-600 hover:bg-[#fffefd] hover:text-brand-ink hover:shadow-[inset_0_0_0_1px_rgba(235,229,217,0.8)]",
           item.disabled &&
             "cursor-not-allowed opacity-45 hover:bg-transparent hover:text-slate-600 hover:shadow-none"
         )}

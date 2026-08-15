@@ -51,7 +51,7 @@ export const Sidebar = ({
           </button>
           <button
             onClick={onToggleCollapsed}
-            className="hidden h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-[#fffdf8] hover:text-sky-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/25 lg:inline-flex"
+            className="hidden h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-[#fffefd] hover:text-sky-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/25 lg:inline-flex"
             aria-label={collapsed ? "Déplier la sidebar" : "Replier la sidebar"}
           >
             {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}

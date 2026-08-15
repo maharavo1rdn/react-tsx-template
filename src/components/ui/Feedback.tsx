@@ -65,7 +65,7 @@ export const Toast = ({ tone = "info", title, description }: ToastProps) => {
   return (
     <div
       className={cn(
-        "flex gap-3 rounded-lg border-l-4 bg-[#fffdf8] p-4 text-[0.95rem] text-slate-700 shadow-[0_1px_2px_rgba(23,32,51,0.05),0_10px_24px_rgba(23,32,51,0.06)]",
+        "flex gap-3 rounded-lg border-l-4 bg-[#fffefd] p-4 text-[0.95rem] text-slate-700 shadow-[0_1px_2px_rgba(23,32,51,0.05),0_10px_24px_rgba(23,32,51,0.06)]",
         rail
       )}
       role="status"
