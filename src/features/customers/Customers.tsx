@@ -23,7 +23,7 @@ const Customers = () => {
         </Link>
       </div>
 
-      <section className="rounded-lg border border-slate-100 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+      <section className="ui-panel p-5">
         <div className="mb-6 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <div className="w-full max-w-md">
             <Input
@@ -37,8 +37,8 @@ const Customers = () => {
           </Button>
         </div>
 
-        <div className="overflow-hidden rounded-lg border border-slate-100">
-          <div className="grid grid-cols-[1.2fr_1fr_0.7fr_auto] gap-4 bg-slate-50 px-4 py-3 text-xs font-semibold uppercase text-slate-500 max-md:hidden">
+        <div className="overflow-hidden rounded-lg bg-white shadow-[inset_0_0_0_1px_rgba(223,216,201,0.5)]">
+          <div className="grid grid-cols-[1.2fr_1fr_0.7fr_auto] gap-4 bg-[#f3efe6] px-4 py-3 text-xs font-semibold uppercase text-slate-500 max-md:hidden">
             <span>Client</span>
             <span>Email</span>
             <span>Statut</span>
@@ -53,7 +53,7 @@ const Customers = () => {
                 <p className="text-xs text-slate-500">Compte professionnel</p>
               </div>
               <p className="text-sm text-slate-600">contact@naina.dev</p>
-              <span className="w-fit rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+              <span className="ui-status-success w-fit rounded-full px-2.5 py-1 text-xs font-semibold">
                 Actif
               </span>
               <div className="flex gap-2">

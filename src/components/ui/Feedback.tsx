@@ -5,7 +5,7 @@ import { cn } from "../../lib/utils";
 import { Button } from "./Button";
 
 export const Skeleton = ({ className }: { className?: string }) => (
-  <div className={cn("animate-pulse rounded-lg bg-slate-100", className)} />
+  <div className={cn("animate-pulse rounded-lg bg-slate-200/70", className)} />
 );
 
 interface EmptyStateProps {
@@ -21,8 +21,8 @@ export const EmptyState = ({
   description,
   action,
 }: EmptyStateProps) => (
-  <div className="flex flex-col items-center justify-center rounded-lg border border-dashed border-slate-200 bg-slate-50/60 px-6 py-12 text-center">
-    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-white text-slate-400 shadow-sm">
+  <div className="ui-panel-muted flex flex-col items-center justify-center px-6 py-12 text-center">
+    <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg bg-white text-sky-700 shadow-[0_1px_2px_rgba(23,32,51,0.08)]">
       <Icon size={22} />
     </div>
     <h2 className="text-base font-semibold text-slate-950">{title}</h2>
@@ -41,32 +41,41 @@ export const Toast = ({ tone = "info", title, description }: ToastProps) => {
   const toneMap = {
     success: {
       icon: CheckCircle2,
-      className: "border-emerald-200 bg-emerald-50 text-emerald-700",
+      rail: "border-l-emerald-600",
+      iconClassName: "bg-emerald-100 text-emerald-700",
     },
     warning: {
       icon: AlertCircle,
-      className: "border-amber-200 bg-amber-50 text-amber-700",
+      rail: "border-l-amber-600",
+      iconClassName: "bg-amber-100 text-amber-800",
     },
     error: {
       icon: XCircle,
-      className: "border-rose-200 bg-rose-50 text-rose-700",
+      rail: "border-l-rose-600",
+      iconClassName: "bg-rose-100 text-rose-700",
     },
-    info: { icon: Info, className: "border-sky-200 bg-sky-50 text-sky-700" },
+    info: {
+      icon: Info,
+      rail: "border-l-sky-700",
+      iconClassName: "bg-[#e7f1f6] text-sky-800",
+    },
   };
-  const { icon: Icon, className } = toneMap[tone];
+  const { icon: Icon, rail, iconClassName } = toneMap[tone];
 
   return (
     <div
       className={cn(
-        "flex gap-3 rounded-lg border p-4 text-[0.95rem]",
-        className
+        "flex gap-3 rounded-lg border-l-4 bg-[#fffdf8] p-4 text-[0.95rem] text-slate-700 shadow-[0_1px_2px_rgba(23,32,51,0.05),0_10px_24px_rgba(23,32,51,0.06)]",
+        rail
       )}
       role="status"
     >
-      <Icon size={18} className="mt-0.5 shrink-0" />
+      <span className={cn("mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md", iconClassName)}>
+        <Icon size={18} />
+      </span>
       <div>
-        {title && <p className="font-semibold">{title}</p>}
-        {description && <p className="mt-1 opacity-80">{description}</p>}
+        {title && <p className="font-semibold text-slate-950">{title}</p>}
+        {description && <p className="mt-1 text-slate-600">{description}</p>}
       </div>
     </div>
   );

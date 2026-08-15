@@ -45,11 +45,11 @@ export default function Dashboard() {
         {stats.map((stat) => (
           <div
             key={stat.label}
-            className="rounded-lg border border-slate-100 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)]"
+            className="ui-panel p-5"
           >
             <div className="flex items-center justify-between gap-3">
               <p className="text-sm font-medium text-slate-500">{stat.label}</p>
-              <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-subtle text-sky-700">
+              <span className="ui-icon-tile flex h-9 w-9 items-center justify-center rounded-lg">
                 <stat.icon size={18} />
               </span>
             </div>
@@ -57,7 +57,7 @@ export default function Dashboard() {
               <p className="text-2xl font-semibold text-slate-950">
                 {stat.value}
               </p>
-              <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
+              <span className="ui-status-success rounded-full px-2.5 py-1 text-xs font-semibold">
                 {stat.trend}
               </span>
             </div>
@@ -66,7 +66,7 @@ export default function Dashboard() {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[1.4fr_0.8fr]">
-        <section className="rounded-lg border border-slate-100 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+        <section className="ui-panel p-5">
           <div className="mb-5 flex items-center justify-between">
             <div>
               <h2 className="text-base font-semibold text-slate-950">
@@ -98,7 +98,7 @@ export default function Dashboard() {
           </div>
         </section>
 
-        <section className="rounded-lg border border-slate-100 bg-white p-5 shadow-[0_1px_2px_rgba(15,23,42,0.04)]">
+        <section className="ui-panel p-5">
           <h2 className="text-base font-semibold text-slate-950">
             Chargement maîtrisé
           </h2>

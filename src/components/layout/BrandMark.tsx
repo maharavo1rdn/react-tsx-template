@@ -8,6 +8,8 @@ interface BrandMarkProps {
 }
 
 export const BrandMark = ({ compact = false, className }: BrandMarkProps) => {
+  const monogram = appConfig.name.slice(0, 2).toUpperCase();
+
   return (
     <div className={cn("flex min-w-0 items-center gap-3", className)}>
       {appConfig.logoSrc ? (
@@ -22,11 +24,11 @@ export const BrandMark = ({ compact = false, className }: BrandMarkProps) => {
       ) : (
         <div
           className={cn(
-            "flex shrink-0 items-center justify-center rounded-lg bg-sky-500 text-white shadow-sm",
+            "flex shrink-0 items-center justify-center rounded-lg bg-brand-ink font-bold text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.08),0_10px_24px_rgba(23,32,51,0.14)]",
             compact ? "h-10 w-10" : "h-12 w-12"
           )}
         >
-          <Layers size={compact ? 20 : 24} />
+          {monogram || <Layers size={compact ? 20 : 24} />}
         </div>
       )}
       <div className={cn("min-w-0", compact && "leading-tight")}>
