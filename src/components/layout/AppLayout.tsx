@@ -40,7 +40,7 @@ export const AppLayout = ({ children }: { children: ReactNode }) => {
                         <Menu size={18} />
                     </button>
                     <div className="min-w-0 flex-1">
-                        <p className="text-xs font-medium text-slate-500">Pointsale</p>
+                        <p className="text-xs font-medium text-slate-500">Mkajy Hub</p>
                         <h1 className="truncate text-lg font-semibold text-slate-950 sm:text-xl">{currentPage}</h1>
                     </div>
                     <div className="hidden h-9 w-full max-w-xs items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-400 shadow-sm md:flex">

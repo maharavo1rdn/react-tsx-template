@@ -1,5 +1,5 @@
 export const appConfig = {
-  name: "LR",
+  name: "MKajy Hub",
   tagline: "PAMF Madagascar",
   logoSrc: undefined as string | undefined,
 };

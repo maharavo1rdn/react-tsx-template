@@ -101,7 +101,7 @@ export const Sidebar = ({
                   </svg>
                 </div>
                 <span className="text-lg font-bold tracking-tight text-slate-900">
-                  Pointsale
+                  Mkajy Hub
                 </span>
               </div>
               <div className="flex items-center gap-1">
