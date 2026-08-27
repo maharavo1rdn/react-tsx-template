@@ -1,93 +1,111 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { LockKeyhole, Mail } from "lucide-react";
-import { BrandMark } from "../../components/layout/BrandMark";
-import { Button } from "../../components/ui/Button";
-import { Checkbox } from "../../components/ui/Checkbox";
-import { Input } from "../../components/ui/Input";
-import { Toast } from "../../components/ui/Feedback";
+import { LockKeyhole, Mail, Zap, ShieldCheck } from "lucide-react";
 
 export default function Login() {
-    const navigate = useNavigate();
-    const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-    useEffect(() => {
-        document.title = "Connexion - LR";
-    }, []);
+  useEffect(() => {
+    document.title = "Connexion - Back-Office Financier";
+  }, []);
 
-    const handleSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setIsSubmitting(true);
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsSubmitting(true);
 
-        window.setTimeout(() => {
-            setIsSubmitting(false);
-            navigate("/dashboard");
-        }, 650);
-    };
+    window.setTimeout(() => {
+      setIsSubmitting(false);
+      navigate("/dashboard");
+    }, 600);
+  };
 
-    return (
-        <main className="flex min-h-dvh items-center justify-center bg-background px-4 py-8">
-            <section className="grid w-full max-w-5xl overflow-hidden rounded-xl bg-[#fffefd] shadow-[0_24px_70px_rgba(23,32,51,0.12)] lg:grid-cols-[0.95fr_1.05fr]">
-                <div className="hidden bg-surface-warm p-8 lg:flex lg:flex-col lg:justify-between">
-                    <BrandMark />
-                    <div className="space-y-4">
-                        <p className="text-sm font-semibold uppercase text-sky-700">Accès sécurisé</p>
-                        <h1 className="max-w-sm text-3xl font-semibold text-slate-950">Un espace clair pour piloter vos opérations.</h1>
-                        <p className="max-w-md text-base text-slate-600">
-                            Le login reste volontairement séparé du layout applicatif : aucun header, aucune sidebar, seulement le parcours d'authentification.
-                        </p>
-                    </div>
-                    <p className="text-sm text-slate-500">Variables, sessions et validations sont à connecter côté backend.</p>
-                </div>
+  return (
+    <main className="flex min-h-dvh items-center justify-center bg-[#f4f5f9] dark:bg-slate-950 px-4 py-8">
+      <section className="grid w-full max-w-4xl overflow-hidden rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xl lg:grid-cols-2">
+        {/* Left Branding Panel */}
+        <div className="hidden bg-slate-900 dark:bg-slate-950 p-8 lg:flex lg:flex-col lg:justify-between text-white border-r border-slate-800">
+          <div className="flex items-center gap-2">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 font-bold">
+              <Zap size={20} className="fill-white text-white" />
+            </div>
+            <span className="text-lg font-bold tracking-tight">
+              FinAdmin<span className="text-blue-500">.bo</span>
+            </span>
+          </div>
 
-                <div className="p-6 sm:p-8 lg:p-10">
-                    <BrandMark className="mb-8 lg:hidden" />
-                    <div className="mb-6">
-                        <h2 className="text-2xl font-semibold text-slate-950">Connexion</h2>
-                        <p className="mt-1 text-base text-slate-500">Entrez vos identifiants pour accéder au tableau de bord.</p>
-                    </div>
+          <div className="space-y-4">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-blue-500/10 px-3 py-1 text-xs font-semibold text-blue-400 border border-blue-500/20">
+              <ShieldCheck size={14} />
+              Accès Restreint & Sécurisé
+            </span>
+            <h1 className="text-2xl font-bold tracking-tight leading-snug">
+              Plateforme Back-Office d'Administration, KYC & Risk Monitoring.
+            </h1>
+            <p className="text-sm text-slate-400">
+              Interface haute densité réservée aux agents internes. Authentification par rôles et traçabilité d'audit.
+            </p>
+          </div>
 
-                    <Toast
-                        tone="info"
-                        title="Compte de démonstration"
-                        description="Le formulaire simule une connexion puis redirige vers le dashboard."
-                    />
+          <p className="text-xs text-slate-500">
+            © 2025 Bank Admin Inc. Tous droits réservés.
+          </p>
+        </div>
 
-                    <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-                        <Input
-                            label="Adresse email"
-                            type="email"
-                            placeholder="admin@LR.dev"
-                            autoComplete="email"
-                            required
-                        />
-                        <Input
-                            label="Mot de passe"
-                            type="password"
-                            placeholder="Votre mot de passe"
-                            autoComplete="current-password"
-                            required
-                        />
+        {/* Right Form Panel */}
+        <div className="p-6 sm:p-10 flex flex-col justify-center">
+          <div className="mb-6">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-white">Connexion Agent</h2>
+            <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+              Veuillez saisir vos identifiants d'accès d'entreprise.
+            </p>
+          </div>
 
-                        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                            <Checkbox label="Se souvenir de moi" helperText="À connecter à votre stratégie de session." />
-                            <button type="button" className="text-left text-sm font-semibold text-sky-700 hover:text-sky-800">
-                                Mot de passe oublié
-                            </button>
-                        </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1">
+                Adresse Email Pro
+              </label>
+              <input
+                type="email"
+                required
+                defaultValue="b.vance@bank-admin.io"
+                className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3.5 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-                        <Button type="submit" size="lg" className="w-full" isLoading={isSubmitting}>
-                            <LockKeyhole size={17} />
-                            Se connecter
-                        </Button>
+            <div>
+              <label className="block text-xs font-bold uppercase text-slate-500 dark:text-slate-400 mb-1">
+                Mot de passe
+              </label>
+              <input
+                type="password"
+                required
+                defaultValue="••••••••••••"
+                className="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-900 px-3.5 py-2.5 text-xs font-semibold text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
 
-                        <Button type="button" variant="secondary" size="lg" className="w-full" onClick={() => navigate("/dashboard")}>
-                            <Mail size={17} />
-                            Continuer en mode démo
-                        </Button>
-                    </form>
-                </div>
-            </section>
-        </main>
-    );
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 hover:bg-blue-700 text-white py-2.5 text-xs font-bold transition shadow-xs"
+            >
+              <LockKeyhole size={16} />
+              {isSubmitting ? "Connexion..." : "Se connecter"}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate("/dashboard")}
+              className="w-full inline-flex items-center justify-center gap-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 py-2.5 text-xs font-semibold hover:bg-slate-50 dark:hover:bg-slate-700 transition"
+            >
+              <Mail size={16} />
+              Accéder directement au Dashboard Démo
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+  );
 }

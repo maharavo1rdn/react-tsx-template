@@ -1,137 +1,59 @@
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
-import { ChevronRight, Circle } from "lucide-react";
+import React from "react";
+import { NavLink } from "react-router-dom";
 import { cn } from "../../lib/utils";
-import type { NavigationItem } from "../../types";
+import type { NavItemConfig } from "../../config/navigation";
 
 interface SidebarItemProps {
-  item: NavigationItem;
+  item: NavItemConfig;
   collapsed: boolean;
-  onNavigate?: (() => void) | undefined;
-  depth?: number | undefined;
+  onNavigate?: () => void;
 }
 
-const findFirstPath = (item: NavigationItem): string | undefined => {
-  if (item.path) return item.path;
-  return item.children?.map(findFirstPath).find(Boolean);
-};
-
-const isItemActive = (item: NavigationItem, pathname: string): boolean => {
-  if (item.path && pathname === item.path) {
-    return true;
-  }
-
-  return item.children?.some((child) => isItemActive(child, pathname)) ?? false;
-};
-
-export const SidebarItem = ({
+export const SidebarItem: React.FC<SidebarItemProps> = ({
   item,
   collapsed,
   onNavigate,
-  depth = 0,
-}: SidebarItemProps) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const hasChildren = !!item.children?.length;
-  const active = isItemActive(item, location.pathname);
-  const [expanded, setExpanded] = useState(active);
-  const Icon = item.icon ?? Circle;
-
-  const handleClick = () => {
-    if (item.disabled) return;
-
-    if (hasChildren) {
-      if (collapsed) {
-        const firstChildPath = findFirstPath(item);
-        if (firstChildPath) {
-          navigate(firstChildPath);
-          onNavigate?.();
-        }
-        return;
-      }
-
-      setExpanded((current) => !current);
-    } else if (item.path) {
-      navigate(item.path);
-      onNavigate?.();
-    }
-  };
+}) => {
+  const Icon = item.icon;
 
   return (
-    <div className="min-w-0">
-      <button
-        onClick={handleClick}
-        title={collapsed ? item.label : undefined}
-        aria-current={!hasChildren && active ? "page" : undefined}
-        aria-expanded={hasChildren && !collapsed ? expanded : undefined}
-        disabled={item.disabled}
+    <NavLink
+      to={item.path}
+      onClick={onNavigate}
+      className={({ isActive }) =>
+        cn(
+          "group relative flex h-10 items-center rounded-lg px-3 text-sm font-medium transition-colors duration-150",
+          isActive
+            ? "bg-white text-blue-600 shadow-xs border border-slate-200/80 font-semibold dark:bg-slate-800 dark:border-slate-700 dark:text-blue-400"
+            : "text-slate-600 hover:bg-slate-200/50 hover:text-slate-900 dark:text-slate-400 dark:hover:bg-slate-800/60 dark:hover:text-slate-200",
+          collapsed && "justify-center px-0"
+        )
+      }
+      title={collapsed ? item.label : undefined}
+    >
+      <Icon
+        size={19}
         className={cn(
-          "group relative flex h-11 w-full items-center gap-3 rounded-lg px-3 text-base font-medium transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/25",
-          depth > 0 && "h-10 text-[0.95rem]",
-          active && depth === 0
-            ? "bg-[#fffefd] text-brand-ink shadow-[inset_3px_0_0_#0284c7,inset_0_0_0_1px_rgba(235,229,217,0.95),0_1px_2px_rgba(23,32,51,0.05)]"
-            : active
-              ? "bg-transparent text-brand-ink shadow-[inset_2px_0_0_#0284c7]"
-              : "text-slate-600 hover:bg-[#fffefd] hover:text-brand-ink hover:shadow-[inset_0_0_0_1px_rgba(235,229,217,0.8)]",
-          item.disabled &&
-            "cursor-not-allowed opacity-45 hover:bg-transparent hover:text-slate-600 hover:shadow-none"
+          "shrink-0 text-slate-500 transition-colors group-hover:text-slate-800 dark:text-slate-400 dark:group-hover:text-slate-200",
+          collapsed ? "" : "mr-3"
         )}
-      >
-        <Icon
-          size={depth > 0 ? 16 : 19}
-          className={cn(
-            "shrink-0 transition-colors",
-            active ? "text-sky-700" : "text-slate-400",
-            active && depth > 0 && "text-slate-600"
-          )}
-        />
-        {!collapsed && (
-          <>
-            <span className="min-w-0 flex-1 truncate text-left">
-              {item.label}
-            </span>
-            {item.badge && (
-              <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[0.7rem] font-semibold text-slate-500">
-                {item.badge}
-              </span>
-            )}
-            {hasChildren && (
-              <ChevronRight
-                size={16}
-                className={cn(
-                  "text-slate-400 transition-transform duration-200",
-                  expanded && "rotate-90 text-sky-600"
-                )}
-              />
-            )}
-          </>
-        )}
-      </button>
+      />
 
-      {hasChildren && !collapsed && (
-        <div
-          className={cn(
-            "grid transition-all duration-200 ease-in-out",
-            expanded
-              ? "mt-1 grid-rows-[1fr] opacity-100"
-              : "grid-rows-[0fr] opacity-0"
-          )}
-        >
-          <div className="overflow-hidden pl-5">
-            <div className="flex flex-col gap-1 border-l border-slate-100 pl-3">
-              {item.children?.map((child) => (
-                <SidebarItem
-                  key={child.id}
-                  item={child}
-                  collapsed={collapsed}
-                  onNavigate={onNavigate}
-                  depth={depth + 1}
-                />
-              ))}
-            </div>
-          </div>
-        </div>
+      {!collapsed && (
+        <span className="truncate flex-1 text-slate-700 dark:text-slate-200 group-hover:text-slate-900">
+          {item.label}
+        </span>
       )}
-    </div>
+
+      {!collapsed && item.badge && (
+        <span className="ml-auto rounded-full bg-blue-100 px-2 py-0.5 text-xs font-semibold text-blue-700 dark:bg-blue-900/50 dark:text-blue-300">
+          {item.badge}
+        </span>
+      )}
+
+      {collapsed && item.badge && (
+        <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-blue-600" />
+      )}
+    </NavLink>
   );
 };
