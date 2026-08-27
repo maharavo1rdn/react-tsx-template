@@ -1,75 +1,52 @@
 import {
+  ArrowLeftRight,
+  FileCheck2,
   LayoutDashboard,
   LifeBuoy,
-  ListChecks,
-  Settings,
-  ShieldCheck,
-  UserPlus,
-  Users,
+  ShieldAlert,
 } from "lucide-react";
-import type { NavigationSection } from "../types";
+import type { NavigationSection } from "../types/navigation";
 
 export const navigationSections: NavigationSection[] = [
   {
-    id: "main",
-    label: "Pilotage",
+    id: "ops",
+    label: "Opérations",
     items: [
       {
         id: "dashboard",
-        label: "Tableau de bord",
+        label: "Tableau de bord & Audit",
         icon: LayoutDashboard,
         path: "/dashboard",
+        roles: ["SUPERVISOR", "RISK_ANALYST"],
       },
       {
-        id: "customers",
-        label: "Clients",
-        icon: Users,
-        children: [
-          {
-            id: "customer-list",
-            label: "Liste des clients",
-            path: "/customers",
-            icon: ListChecks,
-          },
-          {
-            id: "customer-create",
-            label: "Nouveau client",
-            path: "/customers/create",
-            icon: UserPlus,
-          },
-        ],
-      },
-    ],
-  },
-  {
-    id: "system",
-    label: "Administration",
-    items: [
-      {
-        id: "security",
-        label: "Sécurité",
-        icon: ShieldCheck,
-        path: "/security",
-        disabled: true,
+        id: "kyc-validation",
+        label: "Validation KYC",
+        icon: FileCheck2,
+        path: "/customers",
+        roles: ["AGENT_KYC", "SUPERVISOR"],
       },
       {
-        id: "settings",
-        label: "Paramètres",
-        icon: Settings,
+        id: "transactions",
+        label: "Monitoring Transactions",
+        icon: ArrowLeftRight,
         path: "/settings",
+        roles: ["RISK_ANALYST", "SUPERVISOR"],
+      },
+      {
+        id: "suspensions",
+        label: "Suspensions & Recouvrement",
+        icon: ShieldAlert,
+        path: "/customers/create",
+        roles: ["RISK_ANALYST", "SUPERVISOR"],
+      },
+      {
+        id: "support-client",
+        label: "Support Client",
+        icon: LifeBuoy,
+        path: "/support",
+        roles: ["CUSTOMER_SUPPORT", "SUPERVISOR"],
       },
     ],
   },
 ];
-
-export const supportNavigation: NavigationSection = {
-  id: "support",
-  items: [
-    {
-      id: "help",
-      label: "Support",
-      icon: LifeBuoy,
-      path: "/support",
-    },
-  ],
-};

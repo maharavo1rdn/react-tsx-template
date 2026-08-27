@@ -1,5 +1,7 @@
 import type { LucideIcon } from "lucide-react";
 
+export type UserRole = "AGENT_KYC" | "RISK_ANALYST" | "CUSTOMER_SUPPORT" | "SUPERVISOR";
+
 export interface NavigationItem {
   id: string;
   label: string;
@@ -7,11 +9,13 @@ export interface NavigationItem {
   icon?: LucideIcon;
   badge?: string;
   disabled?: boolean;
+  roles?: UserRole[];
   children?: NavigationItem[];
 }
 
 export interface NavigationSection {
   id: string;
   label?: string;
+  roles?: UserRole[];
   items: NavigationItem[];
 }
