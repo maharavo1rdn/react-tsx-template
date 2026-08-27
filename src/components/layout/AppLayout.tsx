@@ -28,7 +28,7 @@ export const AppLayout = ({ children }: { children: ReactNode }) => {
             <div
                 className={cn(
                     "min-h-dvh transition-[padding] duration-300 lg:pl-72",
-                    sidebarCollapsed && "lg:pl-20"
+                    sidebarCollapsed && "lg:pl-16"
                 )}
             >
                 <header className="sticky top-0 z-30 flex h-16 items-center gap-3 bg-background/90 px-4 backdrop-blur sm:px-6 lg:px-8">
@@ -40,12 +40,12 @@ export const AppLayout = ({ children }: { children: ReactNode }) => {
                         <Menu size={18} />
                     </button>
                     <div className="min-w-0 flex-1">
-                        <p className="text-xs font-medium text-slate-500">LR</p>
+                        <p className="text-xs font-medium text-slate-500">Pointsale</p>
                         <h1 className="truncate text-lg font-semibold text-slate-950 sm:text-xl">{currentPage}</h1>
                     </div>
                     <div className="hidden h-9 w-full max-w-xs items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-400 shadow-sm md:flex">
                         <Search size={16} />
-                        <span>Recherche rapide</span>
+                        <span>Quick search</span>
                     </div>
                     <button
                         className="inline-flex h-9 w-9 items-center justify-center rounded-lg border border-slate-200 bg-white text-slate-600 shadow-sm transition hover:bg-slate-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/25"

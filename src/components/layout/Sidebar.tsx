@@ -1,7 +1,20 @@
-import { ChevronLeft, ChevronRight, X } from "lucide-react";
-import { navigationSections, supportNavigation } from "../../config/navigation";
+import { useState } from "react";
+import {
+  Bell,
+  ChevronsUpDown,
+  HelpCircle,
+  Inbox,
+  Moon,
+  PanelLeft,
+  Palette,
+  Search,
+  Settings,
+  Sparkles,
+  Zap,
+  X,
+} from "lucide-react";
+import { navigationSections } from "../../config/navigation";
 import { cn } from "../../lib/utils";
-import { BrandMark } from "./BrandMark";
 import { SidebarItem } from "./SidebarItem";
 
 interface SidebarProps {
@@ -17,8 +30,11 @@ export const Sidebar = ({
   onCloseMobile,
   onToggleCollapsed,
 }: SidebarProps) => {
+  const [darkMode, setDarkMode] = useState(false);
+
   return (
     <>
+      {/* Mobile Backdrop */}
       <div
         className={cn(
           "fixed inset-0 z-40 bg-slate-950/20 backdrop-blur-[2px] transition-opacity lg:hidden",
@@ -27,48 +43,149 @@ export const Sidebar = ({
         onClick={onCloseMobile}
       />
 
+      {/* Main Sidebar Panel */}
       <aside
         className={cn(
-          "fixed inset-y-0 left-0 z-50 flex h-dvh w-72 flex-col bg-surface/95 shadow-[10px_0_35px_rgba(15,23,42,0.08)] backdrop-blur transition-all duration-300 lg:translate-x-0 lg:shadow-[1px_0_0_rgba(226,232,240,0.75)]",
+          "fixed inset-y-0 left-0 z-50 flex h-dvh flex-col border-r border-slate-200/80 bg-[#f3f4f6] font-sans text-slate-800 transition-all duration-300 lg:translate-x-0",
           mobileOpen ? "translate-x-0" : "-translate-x-full",
-          collapsed ? "lg:w-20" : "lg:w-72"
+          collapsed ? "w-16 lg:w-16" : "w-72 lg:w-72"
         )}
       >
-        <div className="flex min-h-18 items-center gap-3 px-4">
-          <BrandMark
-            compact
-            className={cn(
-              "flex-1 transition-opacity duration-200",
-              collapsed && "lg:pointer-events-none lg:[&>div:last-child]:hidden"
-            )}
-          />
-          <button
-            onClick={onCloseMobile}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-50 hover:text-slate-950 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/25 lg:hidden"
-            aria-label="Fermer la navigation"
-          >
-            <X size={18} />
-          </button>
-          <button
-            onClick={onToggleCollapsed}
-            className="hidden h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-[#fffefd] hover:text-sky-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/25 lg:inline-flex"
-            aria-label={collapsed ? "Déplier la sidebar" : "Replier la sidebar"}
-          >
-            {collapsed ? <ChevronRight size={18} /> : <ChevronLeft size={18} />}
-          </button>
+        {/* Header / Brand */}
+        <div
+          className={cn(
+            "flex h-14 items-center px-3.5 border-b border-slate-200/60",
+            collapsed ? "justify-center" : "justify-between"
+          )}
+        >
+          {collapsed ? (
+            <button
+              onClick={onToggleCollapsed}
+              className="flex h-9 w-9 items-center justify-center rounded-lg text-indigo-600 hover:bg-slate-200/60 transition-colors"
+              aria-label="Déplier la sidebar"
+            >
+              {/* Sun/Point Logo icon */}
+              <svg
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                className="w-6 h-6 text-indigo-600"
+              >
+                <path
+                  d="M12 3V6M12 18V21M3 12H6M18 12H21M5.636 5.636L7.757 7.757M16.243 16.243L18.364 18.364M5.636 18.364L7.757 16.243M16.243 7.757L18.364 5.636"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                />
+              </svg>
+            </button>
+          ) : (
+            <>
+              <div className="flex items-center gap-2.5">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg text-indigo-600">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="w-6 h-6 text-indigo-600"
+                  >
+                    <path
+                      d="M12 3V6M12 18V21M3 12H6M18 12H21M5.636 5.636L7.757 7.757M16.243 16.243L18.364 18.364M5.636 18.364L7.757 16.243M16.243 7.757L18.364 5.636"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+                <span className="text-lg font-bold tracking-tight text-slate-900">
+                  Pointsale
+                </span>
+              </div>
+              <div className="flex items-center gap-1">
+                <button
+                  onClick={onCloseMobile}
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-200/60 lg:hidden"
+                  aria-label="Fermer la navigation"
+                >
+                  <X size={18} />
+                </button>
+                <button
+                  onClick={onToggleCollapsed}
+                  className="hidden h-8 w-8 items-center justify-center rounded-lg text-slate-500 hover:bg-slate-200/60 hover:text-slate-800 lg:inline-flex"
+                  aria-label="Replier la sidebar"
+                >
+                  <PanelLeft size={18} />
+                </button>
+              </div>
+            </>
+          )}
         </div>
 
-        <nav className="no-scrollbar flex-1 overflow-y-auto overflow-x-hidden px-3 py-4">
-          <div className="flex flex-col gap-5">
+        {/* Navigation Content */}
+        <div className="no-scrollbar flex-1 overflow-y-auto px-3 py-3 flex flex-col gap-5">
+          {/* Quick search & System items (Inbox, Notifications) */}
+          <div className="flex flex-col gap-0.5">
+            {collapsed ? (
+              <>
+                <button
+                  className="flex h-10 w-full items-center justify-center rounded-xl text-slate-500 hover:bg-slate-200/50 hover:text-slate-900"
+                  title="Quick search"
+                >
+                  <Search size={19} />
+                </button>
+                <button
+                  className="flex h-10 w-full items-center justify-center rounded-xl text-slate-500 hover:bg-slate-200/50 hover:text-slate-900 relative"
+                  title="Inbox"
+                >
+                  <Inbox size={19} />
+                </button>
+                <button
+                  className="flex h-10 w-full items-center justify-center rounded-xl text-slate-500 hover:bg-slate-200/50 hover:text-slate-900 relative"
+                  title="Notifications"
+                >
+                  <Bell size={19} />
+                </button>
+              </>
+            ) : (
+              <>
+                <button className="flex h-10 w-full items-center gap-3 rounded-xl px-3 py-2 text-slate-500 hover:bg-slate-200/50 hover:text-slate-900 transition-colors">
+                  <Search size={19} className="shrink-0 text-slate-500" />
+                  <span className="text-[0.9375rem] font-medium text-slate-600">
+                    Quick search
+                  </span>
+                </button>
+
+                <button className="flex h-10 w-full items-center justify-between rounded-xl px-3 py-2 text-slate-600 hover:bg-slate-200/50 hover:text-slate-900 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <Inbox size={19} className="shrink-0 text-slate-500" />
+                    <span className="text-[0.9375rem] font-medium">Inbox</span>
+                  </div>
+                  <span className="text-xs font-semibold text-slate-500">12</span>
+                </button>
+
+                <button className="flex h-10 w-full items-center justify-between rounded-xl px-3 py-2 text-slate-600 hover:bg-slate-200/50 hover:text-slate-900 transition-colors">
+                  <div className="flex items-center gap-3">
+                    <Bell size={19} className="shrink-0 text-slate-500" />
+                    <span className="text-[0.9375rem] font-medium">Notifications</span>
+                  </div>
+                  <span className="text-xs font-semibold text-slate-500">15+</span>
+                </button>
+              </>
+            )}
+          </div>
+
+          <div className="h-px bg-slate-200/80 -mx-3" />
+
+          {/* Menu Sections */}
+          <div className="flex flex-col gap-4">
             {navigationSections.map((section) => (
               <section key={section.id} className="min-w-0">
-                {section.label && (
-                  <p
-                    className={cn(
-                      "mb-2 px-3 text-xs font-semibold uppercase text-slate-400 transition-opacity",
-                      collapsed && "lg:opacity-0"
-                    )}
-                  >
+                {!collapsed && section.label && (
+                  <p className="mb-2 px-3 text-xs font-semibold uppercase tracking-wider text-slate-400">
                     {section.label}
                   </p>
                 )}
@@ -85,17 +202,130 @@ export const Sidebar = ({
               </section>
             ))}
           </div>
-        </nav>
 
-        <div className="px-3 pb-4">
-          {supportNavigation.items.map((item) => (
-            <SidebarItem
-              key={item.id}
-              item={item}
-              collapsed={collapsed}
-              onNavigate={onCloseMobile}
-            />
-          ))}
+          {/* Pro Trial / Upgrade Card */}
+          {collapsed ? (
+            <div className="flex justify-center my-1">
+              <button
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-indigo-50 border border-indigo-200/60 text-indigo-600 shadow-sm hover:bg-indigo-100 transition-colors"
+                title="Current plan: Pro trial"
+              >
+                <Sparkles size={18} />
+              </button>
+            </div>
+          ) : (
+            <div className="mt-auto rounded-2xl bg-indigo-50/70 p-4 border border-indigo-100/80">
+              <div className="flex items-start gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-indigo-100 text-indigo-600">
+                  <Sparkles size={18} />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-medium text-slate-500">
+                    Current plan:
+                  </p>
+                  <p className="text-sm font-bold text-slate-900">
+                    Pro trial
+                  </p>
+                </div>
+              </div>
+              <p className="mt-2.5 text-xs leading-relaxed text-slate-600">
+                Upgrade to Pro to get the latest and exclusive features
+              </p>
+              <button className="mt-3.5 flex w-full items-center justify-center gap-2 rounded-xl bg-white px-3 py-2 text-xs font-semibold text-slate-900 shadow-sm ring-1 ring-slate-950/10 hover:bg-slate-50 transition-colors">
+                <Zap size={14} className="fill-indigo-600 text-indigo-600" />
+                <span>Upgrade to Pro</span>
+              </button>
+            </div>
+          )}
+
+          <div className="h-px bg-slate-200/80 -mx-3" />
+
+          {/* Bottom Preferences / Dark mode / Themes / Help */}
+          <div className="flex flex-col gap-0.5">
+            {collapsed ? (
+              <>
+                <button
+                  className="flex h-10 w-full items-center justify-center rounded-xl text-slate-500 hover:bg-slate-200/50 hover:text-slate-900"
+                  title="Preferences"
+                >
+                  <Settings size={19} />
+                </button>
+                <button
+                  onClick={() => setDarkMode(!darkMode)}
+                  className="flex h-10 w-full items-center justify-center rounded-xl text-slate-500 hover:bg-slate-200/50 hover:text-slate-900"
+                  title="Dark mode"
+                >
+                  <Moon size={19} />
+                </button>
+                <button
+                  className="flex h-10 w-full items-center justify-center rounded-xl text-slate-500 hover:bg-slate-200/50 hover:text-slate-900"
+                  title="Themes"
+                >
+                  <Palette size={19} />
+                </button>
+                <button
+                  className="flex h-10 w-full items-center justify-center rounded-xl text-slate-500 hover:bg-slate-200/50 hover:text-slate-900"
+                  title="Help"
+                >
+                  <HelpCircle size={19} />
+                </button>
+              </>
+            ) : (
+              <>
+                <button className="flex h-10 w-full items-center gap-3 rounded-xl px-3 py-2 text-slate-600 hover:bg-slate-200/50 hover:text-slate-900 transition-colors">
+                  <Settings size={19} className="shrink-0 text-slate-500" />
+                  <span className="text-[0.9375rem] font-medium">Preferences</span>
+                </button>
+                <button
+                  onClick={() => setDarkMode(!darkMode)}
+                  className="flex h-10 w-full items-center gap-3 rounded-xl px-3 py-2 text-slate-600 hover:bg-slate-200/50 hover:text-slate-900 transition-colors"
+                >
+                  <Moon size={19} className="shrink-0 text-slate-500" />
+                  <span className="text-[0.9375rem] font-medium">Dark mode</span>
+                </button>
+                <button className="flex h-10 w-full items-center gap-3 rounded-xl px-3 py-2 text-slate-600 hover:bg-slate-200/50 hover:text-slate-900 transition-colors">
+                  <Palette size={19} className="shrink-0 text-slate-500" />
+                  <span className="text-[0.9375rem] font-medium">Themes</span>
+                </button>
+                <button className="flex h-10 w-full items-center gap-3 rounded-xl px-3 py-2 text-slate-600 hover:bg-slate-200/50 hover:text-slate-900 transition-colors">
+                  <HelpCircle size={19} className="shrink-0 text-slate-500" />
+                  <span className="text-[0.9375rem] font-medium">Help</span>
+                </button>
+              </>
+            )}
+          </div>
+        </div>
+
+        {/* User Profile Footer */}
+        <div className="border-t border-slate-200/80 p-3">
+          {collapsed ? (
+            <div className="flex justify-center">
+              <img
+                src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+                alt="Brooklyn"
+                className="h-9 w-9 rounded-full object-cover ring-2 ring-white"
+              />
+            </div>
+          ) : (
+            <div className="flex items-center justify-between rounded-xl p-1 hover:bg-slate-200/50 transition-colors cursor-pointer">
+              <div className="flex items-center gap-3 min-w-0">
+                <img
+                  src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop&q=80"
+                  alt="Brooklyn"
+                  className="h-9 w-9 rounded-full object-cover ring-2 ring-white shrink-0"
+                />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-sm font-semibold text-slate-900">
+                    Brooklyn
+                  </p>
+                  <p className="truncate text-xs text-slate-500 font-medium">
+                    Pro trial
+                  </p>
+                </div>
+              </div>
+              <ChevronsUpDown size={16} className="text-slate-400 shrink-0 mr-1" />
+            </div>
+          )}
         </div>
       </aside>
     </>
